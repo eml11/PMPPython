@@ -167,6 +167,7 @@ The key to good python code is the use of libraries. Most things that you want t
 \item matplotlib : the main plotting library for python. heavily influenced Matlab plots.
 \item pylab : a cut down version of matplotlib for when you want to plot the data but don't really need that much control over the presentation. (I use it alot as I am lazy).
 \item PyQt and PyGTK : for when you have to write a GUI
+\item Cython : definately not in a beginners course, for integrating C and python.
 \end{itemize}
 
 \section{Sequences (Array Structures) in Python} \label{sequences}
@@ -217,6 +218,23 @@ new_tuple = (1)
 
 You can access the elements of a tuple, add and multiply and slice them, but modifying the size of the tuple or the elements it contians is not possible. Tuples are much faster than lists, however in most situations (the exception being when you want to make use of nested tuples) it is better to use a numpy array when speed is your concern.
 
+
+While lists/tuples can be initialised by typing out each entry individually a more praciticle method is using for loops in lists. This enables lists to be initialised base on another list. for instance:
+
+\begin{verbatim}
+# range(n) is a function that returns a
+# list with entries 1,..,n-1
+
+lst1 = range(n)
+
+# initialise an array where the elements are
+# given by some function f(x) of elements
+# in lst1
+
+lst2 = [f(el1) for el1 in lst1]
+
+\end{verbatim}
+
 \section{Numpy}
 
 I have devoted an entire section on numpy due to it's utility. Correct use of numpy is key to any numerical work in python.
@@ -259,6 +277,66 @@ C = np.array(A)*np.array(B)
 \end{verbatim}
 
 Appart from being slightly shorter the main advantage of doing this is speed. Given that ultimately the computer must loop over each element in turn regardless of how you code it, why should this be? The answer is that the loop in numpy is written in C and thus executes much faster than the equivilent loop written in python. Also numpy arrays are written more efficiently in memory than lists as they do not support nesting.
+
+Numpy arrays can be initialised using lists, but has a varaiety of functions for generating arrays:
+
+\begin{verbatim}
+# initialise an array with n zeros
+ar1 = np.zeros(n)
+ar2 = np.zeros_like(ar1) # array of zeros with same shape as ar1
+
+# initialise an array with n zeros
+ar1 = np.ones(n)
+ar2 = np.ones_like(ar1) 
+
+# initialise array with n linearly increasing values
+# between strt and end  
+ar1 = np.linspace(strt,end,n)
+ar2 = np.linspace(strt,end) # defaults to n = 50
+
+\end{verbatim}
+
+A very useful function in numpy is \verb|np.where|. This sets values in a numpy array accourding to a conditional, and is esentially equivilent to looping over the array and setting the value with an if/else statement. This should almost always be used instead of for loops with if statements. 
+
+\begin{verbatim}
+# use of the where statement
+# for ar1,ar2 a numpy array
+
+# the syntax is np.where(conditional,value if true,value if false)
+# can set with arrays
+ar3 = np.where(ar1<0,ar1,ar2)
+
+# or numbers
+ar3 = np.where(ar1<0,1,0)
+
+# can also compare arrays for the conditional
+ar3 = np.where(ar1<ar2,1,0)
+
+\end{verbatim} 
+
+In addition to arrays, numpy has an implimentation of matrices - with all the normal definitions of matrix multiplication, inverse, determinant.
+
+Numpy also contains a module numpy.ma which contains an implementation of masked arrays. These are used for dealing with invalid data, but are also often of use for selecting subsets of arrays, particularly with the use of \verb|np.where| . These are used as follows:
+
+\begin{verbatim}
+# numpy.ma must be imported seperately
+import numpy.ma as ma
+
+# masked arrays have the mask optional
+# argument which accepts a list containing
+# 1 or 0 of the same shape as the array and
+# masks elments which are marked with a 1
+# these are still in the array but are no longer
+# used for computation 
+# for array ar1:
+
+masked_ar = ma.masked_array(ar1,mask = [0,0,1,0])
+
+# this has masked the 3rd element
+
+\end{verbatim}
+
+\section{Basic Plotting with Pyplot}
 
 \appendix
 
