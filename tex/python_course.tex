@@ -166,6 +166,7 @@ The key to good python code is the use of libraries. Most things that you want t
 \item scipy : an extensive library for scientific computations. Includes functions for statistics, ode solvers, least squares inversion/curve fitting and many special functions.
 \item matplotlib : the main plotting library for python. heavily influenced Matlab plots.
 \item pylab : a cut down version of matplotlib for when you want to plot the data but don't really need that much control over the presentation. (I use it alot as I am lazy).
+\item Shapely : 2D geometry and topology library, good for interacting with GIS data/maps. Defines lines/polygons etc and their relationships
 \item PyQt and PyGTK : for when you have to write a GUI
 \item Cython : definately not in a beginners course, for integrating C and python.
 \end{itemize}
@@ -385,6 +386,44 @@ masked_ar = ma.masked_array(ar1,mask = [0,0,1,0])
 \end{verbatim}
 
 \section{Basic Plotting with Pyplot}
+
+The main plotting library for python is Matplotlib, which is esentially a copy of MatLabs plotting library with most of the syntax unchanged. The simplest way of plotting things in python is to use pylab, which is a module of matplotlib. When using Matplotlib alot needs to be specified before you can plot anything, which gives a great deal of flexibility at the expense of lazieness. Pylab is quite different to plot two arrays x and y the syntax is beutifully simple:
+
+\begin{verbatim}
+# import pylab as pb
+
+pb.plot(x,y)
+pb.show()
+\end{verbatim}
+
+For a scatter plot:
+
+\begin{verbatim}
+pb.plot(x,y,"x")
+pb.show()
+\end{verbatim}
+
+The \verb|"x"| here is the linestyle, this is an optional argument that can be passed to pb.plot, the default is straight lines. This defines if/what lines to use, what to plot on the datapoints and the colours (On which note Matplotlib/pylab is American and thus mispells it color instead). Some example linestyles:
+
+\subsubsection{Example Linestyles}
+\begin{center}
+\begin{tabular}{l l}
+\verb|"-"| & solid line\\
+\verb|"r-"| & red solid line\\
+\verb|"k--"| & black dashed line\\
+\verb|"x"| & crosses\\
+\verb|"bo"| & blue circles\\
+\verb|g:>| & green dotted line with triangles\\
+\end{tabular}
+\end{center}
+
+Plotting multiple lines/datasets can be done by calling pb.plot multiple times before the pb.show - you plot all the data and then call show and there is no need to specifiy \verb|hold| as in MatLab. 
+
+\section{Scipy}
+
+\section{Classes}
+
+\section{Try,Except and Exceptions}
 
 \appendix
 
