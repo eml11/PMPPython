@@ -52,13 +52,13 @@ Particularly For loops are a bad idea! Alot of code that you can write with for 
 
 \section{Syntax and Language}
 
-The following is a referance to pythons language and Syntax. Python is actually well documented and has a central documentation here \url{https://docs.python.org/3/}. And of course stack overflow is your eternal saviour. It's important to note that python has changed significantly between version 2 and 3 and in a way that basically breaks everything between the versions. Python 3 is anoyingly more restrictive than 2 but it is more consitent. This section is not meant to be exhastive, that's what the main documentation is for, but to contain enough to get started. 
+The following is a referance to pythons  Syntax. Python is actually well documented and has a central documentation here \url{https://docs.python.org/3/}. And of course stack overflow is your eternal saviour. It's important to note that python has changed significantly between version 2 and 3 and in a way that basically breaks everything between the versions. Python 3 is anoyingly more restrictive than 2 but it is more consitent. 
 
-I have also decided to keep more advanced commands such as try/except and classes seperate from this section
+Appendix \ref{} contains a referance to various commands in python. This is not meant to be exhastive, that's what the main documentation is for, but to contain enough to get started. 
 
 \subsection{General Syntax}
 
-Python does not have a line terminating caracter, instead using newline to terminate each line of code (more accurately the line terminating caracter is \\n the newline caracter). To indicate code blocks upon which loops,if statements etc act python uses whitespace caracters (stick to useing a consistent number of spaces! Never use tabs.) When you come to the end of the code in the loop,function definition etc this is indicated by returning to the original indentation:
+Python does not have a line terminating caracter, instead using newline to terminate each line of code (more accurately the line terminating caracter is \textbackslash n the newline caracter). To indicate code blocks upon which loops,if statements etc act python uses whitespace caracters (stick to useing a consistent number of spaces! Never use tabs.) When you come to the end of the code in the loop,function definition etc this is indicated by returning to the original indentation:
 
 \begin{verbatim}
 for i in [1,2,3]: #note colon to end for loop line
@@ -413,7 +413,7 @@ The \verb|"x"| here is the linestyle, this is an optional argument that can be p
 \verb|"k--"| & black dashed line\\
 \verb|"x"| & crosses\\
 \verb|"bo"| & blue circles\\
-\verb|g:>| & green dotted line with triangles\\
+\verb|"g:>"| & green dotted line with triangles\\
 \end{tabular}
 \end{center}
 
@@ -423,7 +423,70 @@ Plotting multiple lines/datasets can be done by calling pb.plot multiple times b
 
 \section{Classes}
 
+
+
 \section{Try,Except and Exceptions}
+
+Sometimes you have to interact with real users, and inevitably they will do stupid things. How do you check to see if the user has given you sensible inputs when you ask for it. This is done with the try,except statements in conjuction with Exceptions.
+
+\subsection{Raising Exceptions}
+
+Python will raise it's own exceptions if it recieves incorrect inputs, however often you may wish to deliberately raise an exception. This is done using the raise command:
+
+\begin{verbatim}
+# raise the base exception
+raise Exception
+
+# raise a specific error (TypeError)
+raise TypeError
+
+# raise specific error with additional information
+# which will be printed when the error is raised
+raise TypeError("A type error was raised")
+\end{verbatim}
+
+Python has a large number of Errors predefined and most circumstances are covered by one of them. However there are times, particularly when developing classes that you may want to define your own. This is done by writing an error class, which makes use of inheritance:
+
+\begin{verbatim}
+# a custom error which inherits from
+# exception
+class CustomError(Exception):
+  pass
+\end{verbatim}
+
+This will now behave like any other Exception.
+
+\subsection{Using Try,Except}
+
+\verb|try| and \verb|except| are commands in python used primarilly for error handling. They are often used in conjuction with raw\_input and the raise statement to handle data inputed by the user at runtime, which is not gatunteed to be in the correct format. Python runs the code in the \verb|try| block, however if this fails with an error the code in the \verb|except| block is run instead and any results (e.g. changing variables) from the \verb|try| block are discarded.
+
+\begin{verbatim}
+try:
+  # execute this block of code
+  #
+  #
+except:
+  # if the above code fails
+  # execute this instead
+\end{verbatim}
+
+An example of how to use this is when you require the user to input data - say a float:
+
+\begin{verbatim}
+try:
+  # ask the user for input using raw_input
+  # which returns what they type as a string
+  usr_input=raw_input("Input a Float")
+  # convert the input to a float
+  x = usr_input
+except:
+  # if something went wrong - say the users
+  # an idiot and writes a sentance instead of
+  # a number
+  raise TypeError("Thats not actually a number")
+\end{verbatim}
+
+There is another use for try, except and that is to handle data with missing/invalid values. This is really an abuse of the try, except routine as you are effectively using it as an if statement, with except being used as else. This is dangerous as any bug in the try block will not cause the code to crash/raise an exception. However it's a rather useful abuse and so long as your aware of the dangers of doing so (and preferably if the code doesn't have to be used by anyone else), then it is acceptable.
 
 \appendix
 

@@ -1,9 +1,9 @@
-ROOTDIR="."
+ROOTDIR=.
 SAMPLES=${ROOTDIR}/samples
 DATA=${ROOTDIR}/data
 TEX=${ROOTDIR}/tex
 
-DOCBASE="python_course"
+DOCBASE=python_course
 
 doc:
 	cd ${TEX} && latex ${DOCBASE}.tex
